@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.LawFileMapper" >
+  <resultMap id="BaseResultMap" type="com.model.LawFile" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_content" property="fileContent" jdbcType="VARCHAR" />
+    <result column="create_people" property="createPeople" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    file_id, file_name, create_people
+    from law_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    file_content
+    from law_file
+    where file_name = #{fileName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    file_id, file_name, create_people
+    from law_file
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from law_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.LawFile" >
+    insert into law_file (file_id, file_name, create_people
+      )
+    values (#{fileId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{createPeople,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.model.LawFile" >
+    update law_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      create_people = #{createPeople,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+</mapper>

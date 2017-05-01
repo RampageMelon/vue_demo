@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id, dept_code, dept_name, address, phone, principal, email, business_scope, username,
+    password
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  SELECT id, dept_code, dept_name, address, phone, principal, email, business_scope, username,password
+  from user
+  where username = #{username,jdbcType=VARCHAR}
+</select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    id, dept_code, dept_name, address, phone, principal, email, business_scope, username,password
+    from user
+  </select>
+  <select id="selectAllByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    id, dept_code, dept_name, address, phone, principal, email, business_scope, username,password
+    from user
+    where username like #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.User" >
+    insert into user (id, dept_code, dept_name, 
+      address, phone, principal, 
+      email, business_scope, username, 
+      password)
+    values (#{id,jdbcType=INTEGER}, #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.model.User" >
+    update user
+    set dept_code = #{deptCode,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.DangerCriticalMapper" >
+  <resultMap id="BaseResultMap" type="com.model.DangerCritical" >
+    <id column="critical_id" property="criticalId" jdbcType="INTEGER" />
+    <result column="critical_type" property="criticalType" jdbcType="VARCHAR" />
+    <result column="critical_name" property="criticalName" jdbcType="VARCHAR" />
+    <result column="critical_amount" property="criticalAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    critical_id, critical_type, critical_name, critical_amount
+    from danger_critical
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    critical_id, critical_type, critical_name, critical_amount
+    from danger_critical
+    where critical_id = #{criticalId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAmountByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    critical_amount
+    from danger_critical
+    where critical_name = #{criticalName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    critical_id, critical_type, critical_name, critical_amount
+    from danger_critical
+    where critical_name like #{criticalName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByName2" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    critical_name
+    from danger_critical
+    where critical_name like #{criticalName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    critical_id, critical_type, critical_name, critical_amount
+    from danger_critical
+    where critical_type = #{criticalType,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByNameAndType" resultMap="BaseResultMap"  >
+    select
+    critical_id, critical_type, critical_name, critical_amount
+    from danger_critical
+    where critical_type = #{criticalType,jdbcType=VARCHAR} and critical_name like #{criticalName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from danger_critical
+    where critical_id = #{criticalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.DangerCritical" >
+    insert into danger_critical (critical_id, critical_type, critical_name, 
+      critical_amount)
+    values (#{criticalId,jdbcType=INTEGER}, #{criticalType,jdbcType=VARCHAR}, #{criticalName,jdbcType=VARCHAR}, 
+      #{criticalAmount,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.model.DangerCritical" >
+    update danger_critical
+    set critical_type = #{criticalType,jdbcType=VARCHAR},
+      critical_name = #{criticalName,jdbcType=VARCHAR},
+      critical_amount = #{criticalAmount,jdbcType=DOUBLE}
+    where critical_id = #{criticalId,jdbcType=INTEGER}
+  </update>
+</mapper>
